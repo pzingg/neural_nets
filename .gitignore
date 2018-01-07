@@ -1,0 +1,6 @@
+*.pyo
+*.pyc
+__pycache__
+Test-*.txt
+Train-*.txt
+*.h5
