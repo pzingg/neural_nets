@@ -23,6 +23,7 @@ import struct
 import sys
 import h5py
 
+
 # ## Data download
 #
 # We will download the data onto the local machine. The MNIST database is a standard set of
@@ -40,12 +41,12 @@ import h5py
 # - load packs the downloaded image and labels data into a combined format to be read later by
 #   CNTK text reader
 
-def load_dataset():
-    train_dataset = h5py.File('datasets/train_signs.h5', "r")
+def load_dataset(data_dir):
+    train_dataset = h5py.File(os.path.join(data_dir, 'train_signs.h5'), "r")
     train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
     train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # your train set labels
 
-    test_dataset = h5py.File('datasets/test_signs.h5', "r")
+    test_dataset = h5py.File(os.path.join(data_dir, 'test_signs.h5'), "r")
     test_set_x_orig = np.array(test_dataset["test_set_x"][:]) # your test set features
     test_set_y_orig = np.array(test_dataset["test_set_y"][:]) # your test set labels
 
@@ -57,8 +58,8 @@ def load_dataset():
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
 
 
-def load_data():
-    X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_dataset()
+def load_data(data_dir):
+    X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_dataset(data_dir)
 
     # Flatten the training and test images
     X_train_flatten = X_train_orig.reshape(X_train_orig.shape[0], -1).T
@@ -127,11 +128,8 @@ def savetxt(filename, features, labels):
 
 # In[6]:
 
-def create_datasets():
-    data = load_data()
-
-    # Save the train and test files (prefer our default path for the data)
-    data_dir = os.path.join(".", "datasets")
+def create_datasets(data_dir):
+    data = load_data(data_dir)
 
     print ('Writing train text file...')
     savetxt(os.path.join(data_dir, "Train-hands-64x64x3-cntk.txt"), data["X_train"], data["Y_train"])
@@ -157,4 +155,4 @@ def create_datasets():
 #
 
 if __name__ == "__main__":
-    create_datasets()
+    create_datasets("../datasets")

@@ -79,8 +79,8 @@ from tf_utils import load_dataset, random_mini_batches, convert_to_one_hot, pred
 
 # In[26]:
 
-def load_data():
-    X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_dataset()
+def load_data(data_dir):
+    X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_dataset(data_dir)
 
     # Flatten the training and test images
     X_train_flatten = X_train_orig.reshape(X_train_orig.shape[0], -1).T
@@ -494,7 +494,7 @@ def predict_image(image_name, parameters):
 
 
 if __name__ == "__main__":
-    data = load_data()
+    data = load_data("../datasets")
 
     # Run the following cell to train your model! On our machine it takes about 5 minutes.
     # Your "Cost after epoch 100" should be 1.016458. If it's not, don't waste time; interrupt

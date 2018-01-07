@@ -67,7 +67,7 @@ C.cntk_py.force_deterministic_algorithms()
 # Ensure the training and test data is generated and available for this tutorial.
 # We search in two locations in the toolkit for the cached SIGN data set.
 data_found = False
-for data_dir in [os.path.join(".", "datasets")]:
+for data_dir in ["../datasets"]:
     train_file = os.path.join(data_dir, "Train-hands-64x64x3-cntk.txt")
     test_file = os.path.join(data_dir, "Test-hands-64x64x3-cntk.txt")
     if os.path.isfile(train_file) and os.path.isfile(test_file):
